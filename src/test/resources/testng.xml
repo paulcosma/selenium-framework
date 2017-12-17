@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="paulcosma.com" verbose="1" >
+    <test name="regression" >
+        <packages>
+            <package name="com.paulcosma.tests" />
+        </packages>
+    </test>
+    <test name="homepage" >
+        <classes>
+            <class name="com.paulcosma.tests.TestHomepage" />
+        </classes>
+    </test>
+</suite>
