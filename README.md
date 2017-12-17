@@ -1,2 +1,5 @@
 # selenium-framework
-Selenium Testing Framework
+Selenium Java TestNG Maven testing framework for
+- paulcosma.com
+- cosma.tk
+- bebeonline.tk
