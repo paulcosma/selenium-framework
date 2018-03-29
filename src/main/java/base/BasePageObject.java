@@ -44,7 +44,8 @@ public class BasePageObject<T> {
         int attempts = 0;
         while (attempts < 2) {
             try {
-                waitFor(ExpectedConditions.visibilityOfElementLocated(locator), (timeOutInSeconds.length > 0 ? timeOutInSeconds[0] : null));
+                waitFor(ExpectedConditions.visibilityOfElementLocated(locator), (timeOutInSeconds.length > 0 ?
+                        timeOutInSeconds[0] : null));
                 break;
             } catch (StaleElementReferenceException e) {
             }
@@ -56,5 +57,13 @@ public class BasePageObject<T> {
         timeOutInSeconds = timeOutInSeconds != null ? timeOutInSeconds : 30;
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         wait.until(condition);
+    }
+
+    public String getTitle() {
+        return driver.getTitle();
+    }
+
+    protected String getText(By element) {
+        return getElement(element).getText();
     }
 }
