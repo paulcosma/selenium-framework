@@ -2,8 +2,8 @@
 
 <suite name="allSuites">
     <suite-files>
-        <suite-file path="com.paulcosma.xml" />
-        <suite-file path="tk.bebeonline.xml" />
-        <suite-file path="tk.cosma.xml" />
+        <suite-file path="com.paulcosma.xml"/>
+        <suite-file path="tk.bebeonline.xml"/>
+        <suite-file path="tk.cosma.xml"/>
     </suite-files>
 </suite>

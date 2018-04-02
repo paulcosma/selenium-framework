@@ -1,15 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="bebeonline.tk" verbose="1">
-<parameter name="browser" value="chrome"/>
-<test name="regression">
-    <packages>
-        <package name="tk.bebeonline.tests"/>
-    </packages>
-</test>
-<test name="homepage">
-    <classes>
-        <class name="tk.bebeonline.tests.TestHomepage"/>
-    </classes>
-</test>
+<suite name="bebeonline.tk" parallel="tests" thread-count="2">
+    <parameter name="browser" value="chrome"/>
+    <test name="regression">
+        <packages>
+            <package name="tk.bebeonline.tests"/>
+        </packages>
+    </test>
+    <test name="homepage">
+        <classes>
+            <class name="tk.bebeonline.tests.TestHomepage"/>
+        </classes>
+    </test>
 </suite>

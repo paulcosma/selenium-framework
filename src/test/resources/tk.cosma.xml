@@ -1,16 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="cosma.tk" verbose="1">
-<parameter name="browser" value="chrome"/>
-<test name="regression">
-    <packages>
-        <package name="tk.cosma.tests"/>
-    </packages>
-</test>
-<test name="homepage">
-    <parameter name="browser" value="firefox"/>
-    <classes>
-        <class name="tk.cosma.tests.TestHomepage"/>
-    </classes>
-</test>
+<suite name="cosma.tk" parallel="tests" thread-count="2">
+    <parameter name="browser" value="chrome"/>
+    <test name="regression">
+        <packages>
+            <package name="tk.cosma.tests"/>
+        </packages>
+    </test>
+    <test name="homepage">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="tk.cosma.tests.TestHomepage"/>
+        </classes>
+    </test>
 </suite>
