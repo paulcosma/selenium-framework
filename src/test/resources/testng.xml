@@ -1,40 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="paulcosma.com" verbose="1">
-    <test name="regression">
-        <packages>
-            <package name="com.paulcosma.tests"/>
-        </packages>
-    </test>
-    <test name="homepage">
-        <classes>
-            <class name="com.paulcosma.tests.TestHomepage"/>
-        </classes>
-    </test>
-</suite>
-
-<suite name="bebeonline.tk" verbose="1">
-<test name="regression">
-    <packages>
-        <package name="tk.bebeonline.tests"/>
-    </packages>
-</test>
-<test name="homepage">
-    <classes>
-        <class name="tk.bebeonline.tests.TestHomepage"/>
-    </classes>
-</test>
-</suite>
-
-<suite name="cosma.tk" verbose="1">
-<test name="regression">
-    <packages>
-        <package name="tk.cosma.tests"/>
-    </packages>
-</test>
-<test name="homepage">
-    <classes>
-        <class name="tk.cosma.tests.TestHomepage"/>
-    </classes>
-</test>
+<suite name="allSuites">
+    <suite-files>
+        <suite-file path="com.paulcosma.xml" />
+        <suite-file path="tk.bebeonline.xml" />
+        <suite-file path="tk.cosma.xml" />
+    </suite-files>
 </suite>

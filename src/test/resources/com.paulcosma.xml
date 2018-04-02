@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="paulcosma.com" verbose="1">
+    <test name="regression">
+        <parameter name="browser" value="chrome"/>
+        <packages>
+            <package name="com.paulcosma.tests"/>
+        </packages>
+    </test>
+    <test name="homepage">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.paulcosma.tests.TestHomepage"/>
+        </classes>
+    </test>
+</suite>
