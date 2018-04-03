@@ -2,14 +2,21 @@ package com.paulcosma.tests;
 
 import base.BaseTest;
 import base.CsvDataProvider;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
+import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import org.testng.internal.TestNGMethodFinder;
 import pages.com.paulcosma.HomePage;
 
 import java.util.Map;
 
-public class TestHomepage extends BaseTest {
 
+public class TestHomepage extends BaseTest {
+    public static Logger log = LogManager.getLogger(TestHomepage.class.getName());
 
     @Test
     public void homepageLoaded() {
@@ -32,10 +39,8 @@ public class TestHomepage extends BaseTest {
         String email = testData.get("email");
         String description = testData.get("description");
 
-        System.out.println("Test enterInvalidEmail number #" + testNumber + " with: " + description + " where \nEmail" +
-                " " +
+        log.info("Test enterInvalidEmail number #" + testNumber + " with: " + description + " where \nEmail" + " " +
                 "= " + email);
-
         HomePage homePage = new HomePage(driver);
         homePage
                 .openHomePage()

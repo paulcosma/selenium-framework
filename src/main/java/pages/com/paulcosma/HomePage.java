@@ -1,11 +1,14 @@
 package pages.com.paulcosma;
 
 import base.BasePageObject;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePageObject<HomePage> {
     private static final String URL = "https://paulcosma.com";
+    public static Logger log = LogManager.getLogger(HomePage.class.getName());
     // Page elements
     private By emailField = By.id("exampleInputEmail1");
     private By getNotified = By.cssSelector("input[type='submit']");
@@ -16,26 +19,26 @@ public class HomePage extends BasePageObject<HomePage> {
     }
 
     public HomePage openHomePage() {
-        System.out.println("\nSteps to reproduce:");
-        System.out.println("Step: Go to page: " + URL);
+        log.info("Steps to reproduce:");
+        log.info("Step: Go to page: " + URL);
         driver.get(URL);
         return this;
     }
 
     public HomePage enterEmail(String email) {
-        System.out.println("Step: Enter: " + email + " on Enter your email address field");
+        log.info("Step: Enter: " + email + " on Enter your email address field");
         type(email, emailField);
         return this;
     }
 
     public HomePage clickGetNotification() {
-        System.out.println("Step: Click on Get notified! button");
+        log.info("Step: Click on Get notified! button");
         click(getNotified);
         return this;
     }
 
     public HomePage waitForHomePageToLoad() {
-        System.out.println("Step: Wait for Home Page to load, logo to be displayed and enter your email address field" +
+        log.info("Step: Wait for Home Page to load, logo to be displayed and enter your email address field" +
                 " to be displayed");
         waitForVisibilityOf(logo);
         waitForVisibilityOf(emailField, 10);
@@ -44,9 +47,9 @@ public class HomePage extends BasePageObject<HomePage> {
 
     public boolean isCorrectPageTitleDisplayed(String correctPageTitle) {
         String actualPageTitle = getTitle();
-        System.out.println("Step: Verify page title");
-        System.out.println("\nExpected result: " + "Page title is " + correctPageTitle);
-        System.out.println("Actual result: " + "Page title is " + actualPageTitle);
+        log.info("Step: Verify page title");
+        log.info("Expected result: " + "Page title is " + correctPageTitle);
+        log.info("Actual result: " + "Page title is " + actualPageTitle);
         if (actualPageTitle.equals(correctPageTitle)) {
             return true;
         }
