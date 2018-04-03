@@ -1,6 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-
 <suite name="paulcosma.com" verbose="1">
+    <listeners>
+        <listener class-name="base.TestListener"></listener>
+    </listeners>
     <test name="regression">
         <parameter name="browser" value="chrome"/>
         <packages>

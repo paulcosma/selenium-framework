@@ -14,8 +14,7 @@ public class BaseTest {
     protected WebDriver driver;
 
     @BeforeMethod
-    public void handleTestMethodName(Method method)
-    {
+    public void handleTestMethodName(Method method) {
         String testName = method.getName();
         log.info("@Test = " + testName);
     }

@@ -5,15 +5,10 @@ import base.CsvDataProvider;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
-import org.testng.ITestContext;
-import org.testng.ITestNGMethod;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import org.testng.internal.TestNGMethodFinder;
 import pages.com.paulcosma.HomePage;
 
 import java.util.Map;
-
 
 public class TestHomepage extends BaseTest {
     public static Logger log = LogManager.getLogger(TestHomepage.class.getName());
