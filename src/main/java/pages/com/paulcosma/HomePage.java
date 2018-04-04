@@ -21,12 +21,13 @@ public class HomePage extends BasePageObject<HomePage> {
     public HomePage openHomePage() {
         log.info("Steps to reproduce:");
         log.info("Step: Go to page: " + URL);
-        driver.get(URL);
+        getPage(URL);
         return this;
     }
 
     public HomePage enterEmail(String email) {
         log.info("Step: Enter: " + email + " on Enter your email address field");
+        System.out.println("vaca1 " + emailField.toString());
         type(email, emailField);
         return this;
     }

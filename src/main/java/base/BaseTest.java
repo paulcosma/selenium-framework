@@ -13,20 +13,20 @@ public class BaseTest {
     public static Logger log = LogManager.getLogger(BaseTest.class.getName());
     protected WebDriver driver;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void handleTestMethodName(Method method) {
         String testName = method.getName();
         log.info("@Test = " + testName);
     }
 
     @Parameters({"browser"})
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     protected void setUp(String browser) {
         log.debug("SetUp driver");
         driver = BrowserFactory.getDriver(browser);
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     protected void tearDown() {
         log.debug("Quit driver");
         driver.quit();
