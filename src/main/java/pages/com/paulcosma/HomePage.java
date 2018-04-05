@@ -1,20 +1,18 @@
 package pages.com.paulcosma;
 
 import base.BasePageObject;
+import data.com.paulcosma.Constants;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePageObject<HomePage> {
-    //variables
-    private static final String URL = "https://www.paulcosma.com";
     public static Logger log = LogManager.getLogger(HomePage.class.getName());
     //page elements
     private By logo = By.xpath("//img[@alt='Paul Cosma Logo']");
     private By emailField = By.id("exampleInputEmail1");
     private By getNotifiedButton = By.cssSelector("input[type='submit']");
-    private By vaca = By.xpath("//*[class='cloud floating']");
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -22,8 +20,8 @@ public class HomePage extends BasePageObject<HomePage> {
 
     public HomePage openHomePage() {
         log.info("Steps to reproduce:");
-        log.info("Step: Go to homepage: " + URL);
-        goTo(URL, "home");
+        log.info("Step: Go to homepage: " + Constants.URL);
+        goTo(Constants.URL, "home");
         return this;
     }
 
@@ -50,8 +48,8 @@ public class HomePage extends BasePageObject<HomePage> {
     public boolean isCorrectPageTitleDisplayed(String correctPageTitle) {
         String actualPageTitle = getTitle();
         log.info("Step: Verify page title");
-        log.info("Expected result: " + "Page title is " + correctPageTitle);
         log.info("Actual result: " + "Page title is " + actualPageTitle);
+        log.info("Expected result: " + "Page title is " + correctPageTitle);
         if (actualPageTitle.equals(correctPageTitle)) {
             return true;
         }

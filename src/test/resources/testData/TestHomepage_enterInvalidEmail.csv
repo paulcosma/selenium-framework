@@ -14,6 +14,5 @@ no,email,description
 13,.contact@paulcosma.com,email started with dot
 14,contact.@paulcosma.com,email ended with dot
 15,contact..contact@paulcosma.com,email with two dots
-16,あいうえお@paulcosma.com,invalid characters
-17,contact@paulcosma.com (Paul Cosma),outlook format email
-18,contact@123.123,email with numbers
+16,contact@paulcosma.com (Paul Cosma),outlook format email
+17,contact@123.123,email with numbers

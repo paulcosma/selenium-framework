@@ -20,12 +20,12 @@ public class BasePageObject<T> {
     /**
      * Use this instead of Thread.sleep(milliseconds)
      *
-     * @param time
+     * @param millis
      */
-    public void sleep(int time) {
+    public void sleep(long millis) {
         try {
-            log.debug("Waiting for " + time + " milliseconds");
-            Thread.sleep(time);
+            log.debug("Waiting for " + millis + " milliseconds");
+            Thread.sleep(millis);
         } catch (InterruptedException e) {
             log.error("Error " + e.toString());
             e.printStackTrace();
@@ -83,28 +83,30 @@ public class BasePageObject<T> {
         } catch (Exception e) {
             log.error("Issue: " + elementName + " element was not found! (locator = " + element.toString() + " )");
             log.debug("Error message: " + e);
-            throw(e);
+            throw (e);
         }
     }
 
     /**
      * Identifies element and performs a click on it
+     *
      * @param element
      * @param elementName
      */
     protected void click(By element, String elementName) {
-            try {
-                waitForElementToBeClickable(element,elementName);
-                getElement(element,elementName).click();
-            } catch (Exception e) {
-                log.error("Issue: " + elementName + " element was not clicked! (locator = " + element.toString() + " )");
-                log.debug("Error message: " + e);
-                throw(e);
-            }
+        try {
+            waitForElementToBeClickable(element, elementName);
+            getElement(element, elementName).click();
+        } catch (Exception e) {
+            log.error("Issue: " + elementName + " element was not clicked! (locator = " + element.toString() + " )");
+            log.debug("Error message: " + e);
+            throw (e);
+        }
     }
 
     /**
      * Locates an element and sends keys (performs a clear() before entering the value)
+     *
      * @param text
      * @param element
      * @param elementName
@@ -112,20 +114,111 @@ public class BasePageObject<T> {
     protected void type(String text, By element, String elementName) {
         try {
             log.debug("Filling " + elementName + " with: " + text);
-            WebElement webElement = getElement(element,elementName);
+            WebElement webElement = getElement(element, elementName);
             webElement.clear();
             webElement.sendKeys(text);
         } catch (InvalidElementStateException e) {
             log.error("Issue: Can't fill text on " + elementName + " element! (locator = " + element
                     .toString() + " )");
             log.debug("Error message: " + e);
-            throw(e);
+            throw (e);
         } catch (StaleElementReferenceException e) {
         }
     }
 
     /**
+     * Verifies if a potential alert is present
+     *
+     * @return true if present, false if not
+     */
+    public boolean isAlertPresent() {
+        log.info("Step: Verify alert");
+        try {
+            sleep(500);
+            driver.switchTo().alert();
+            log.info("Actual result: " + "Alert is displayed = true");
+            log.debug("Alert found and switched to it");
+            return true;
+        } catch (Exception e) {
+            log.info("Actual result: " + "Alert is displayed = false");
+            log.debug("No alert found");
+            return false;
+        }
+    }
+
+    /**
+     * Performs a wait for a potential alert to pop-up and if it does, it accepts the alert (clicks OK)
+     */
+    public void acceptAlert() {
+        log.info("Step: Accept Alert");
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 2);
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            alert.accept();
+            log.debug("Alert found and accepted");
+        } catch (Exception e) {
+            log.error("Issue: No alert found");
+            log.debug("Error message: " + e);
+            throw (e);
+        }
+    }
+
+    /**
+     * Accept alert if exists
+     */
+    public void acceptAlertIfExists() {
+        log.info("Step: Accept Alert if any is displayed");
+        for (int i = 0; i < 2; i++) {
+            try {
+                Alert alert = driver.switchTo().alert();
+                if (alert != null) {
+                    log.debug("Alert found and accepted");
+                    alert.accept();
+                    sleep(2000);
+                    break;
+                }
+            } catch (NoAlertPresentException e) {
+                log.debug("No alert found");
+                log.debug("Error message: " + e);
+            }
+        }
+    }
+
+    /**
+     * Performs a wait for a potential alert to pop-up and if it does, it cancels the alert
+     */
+    public void cancelAlert() {
+        log.info("Step: Cancel Alert");
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 2);
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            alert.dismiss();
+            log.debug("Alert found and dismissed");
+        } catch (Exception e) {
+            log.error("Issue: No alert found");
+            log.debug("Error message: " + e);
+            throw (e);
+        }
+    }
+
+    /**
+     * Selects an opened alert and returns the text from it.
+     *
+     * @return String
+     */
+    public String getAlertText() {
+        log.info("Step: Get Alert text");
+        sleep(1000);
+        String alertText = driver.switchTo().alert().getText();
+        log.debug("Alert text = " + alertText);
+        return alertText;
+    }
+
+    /**
      * Wait for element to be clickable
+     *
      * @param locator
      * @param elementName
      * @param timeOutInSeconds
@@ -150,8 +243,9 @@ public class BasePageObject<T> {
 
     /**
      * Wait for the presence of an element
-     *
+     * <p>
      * verifies that the specified element is somewhere on the page.
+     *
      * @param locator
      * @param elementName
      * @param timeOutInSeconds
@@ -175,11 +269,12 @@ public class BasePageObject<T> {
 
     /**
      * Wait for the visibility of an element
-     *
+     * <p>
      * determines if the specified element is visible.
      * an element can be rendered invisible by setting the CSS "visibility" property to "hidden",
      * or the "display" property to "none", either for the element itself or one if its ancestors.
      * this method will fail if the element is not present.
+     *
      * @param locator
      * @param timeOutInSeconds - optional TimeOut
      */

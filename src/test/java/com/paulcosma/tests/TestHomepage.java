@@ -2,7 +2,8 @@ package com.paulcosma.tests;
 
 import base.BaseTest;
 import data.CsvDataProvider;
-import data.Data;
+import data.com.paulcosma.Constants;
+import data.com.paulcosma.HomepageData;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Ignore;
@@ -18,15 +19,13 @@ public class TestHomepage extends BaseTest {
 
     @Test
     public void homepageLoaded() {
-        String expectedUrl = "https://www.paulcosma.com/";
-        String expectedPageTitle = "Paul Cosma";
-
         HomePage homePage = new HomePage(driver);
         homePage
                 .openHomePage()
                 .waitForHomePageToLoad();
-        assertEquals(homePage.getCurrentUrl(), expectedUrl);
-        assertEquals(homePage.getTitle(), expectedPageTitle);
+
+        assertEquals(homePage.getCurrentUrl(), Constants.URL);
+        assertEquals(homePage.getTitle(), Constants.HOMEPAGE_TITLE);
         //if you use JUnit, put the expected value first. If you use TestNG, put the actual value first.
 //        String actualUrl = homePage.getCurrentUrl();
 //        String actualPageTitle = homePage.getTitle();
@@ -43,16 +42,21 @@ public class TestHomepage extends BaseTest {
         //Verify footer message is displated
     }
 
-    @Test(dataProvider = "validEmails", dataProviderClass = Data.class)
+    @Test(dataProvider = "validEmails", dataProviderClass = HomepageData.class)
     public void enterValidEmail(String email, String testNumber) {
-        log.info("Test enterValidEmail number #" + testNumber + " with \nEmail = " + email);
+        log.info("Test enterValidEmail number #" + testNumber + " with email = " + email);
         HomePage homePage = new HomePage(driver);
         homePage
                 .openHomePage()
                 .waitForHomePageToLoad()
                 .enterEmail(email)
                 .clickGetNotification();
-        //TODO verify success message is displayed
+        assertEquals(homePage.getAlertText(), Constants.EMAIL_ALERT_VALID);
+//        assertTrue(homePage.isAlertPresent());
+//        log.info("Expected result: " + "Alert is displayed = true");
+//        homePage.acceptAlert();
+//        assertFalse(homePage.isAlertPresent());
+//        log.info("Expected result: " + "Alert is displayed = false");
     }
 
     @Test(dataProvider = "CsvDataProvider", dataProviderClass = CsvDataProvider.class)
@@ -60,7 +64,7 @@ public class TestHomepage extends BaseTest {
         String testNumber = testData.get("no");
         String email = testData.get("email");
         String description = testData.get("description");
-        log.info("Test enterInvalidEmail number #" + testNumber + " with: " + description + " where \nEmail" + " " +
+        log.info("Test enterInvalidEmail number #" + testNumber + " with: " + description + " where email" + " " +
                 "= " + email);
 
         HomePage homePage = new HomePage(driver);
@@ -69,7 +73,12 @@ public class TestHomepage extends BaseTest {
                 .waitForHomePageToLoad()
                 .enterEmail(email)
                 .clickGetNotification();
-        //TODO verify error message is displayed
+        assertEquals(homePage.getAlertText(), Constants.EMAIL_ALERT_INVALID);
+//        assertTrue(homePage.isAlertPresent());
+//        log.info("Expected result: " + "Alert is displayed = true");
+//        homePage.acceptAlert();
+//        assertFalse(homePage.isAlertPresent());
+//        log.info("Expected result: " + "Alert is displayed = false");
     }
 
     @Ignore
