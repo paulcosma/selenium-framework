@@ -1,3 +1,19 @@
 no,email,description
-1,invalidpaulcosma.com,invalid email without @
-2,invalid@paulcosma,invalid email without tld
+1,contact,plain address
+2,contactpaulcosma.com,invalid email without @
+3,contact@paulcosma,invalid email without tld
+4,@paulcosma.com,invalid email without user
+5,contact@.com,invalid email without domain
+6,@,only @ character
+7,,no email
+8, ,empty space on email field
+9,Paul Cosma <contact@paulcosma.com>,outlook email format
+10,#@%^%#$@#$@#.com,special characters
+11,contact.paulcosma.com,email with . instead of @
+12,contact@paulcosma@paulcosma.com,repeted domain
+13,.contact@paulcosma.com,email started with dot
+14,contact.@paulcosma.com,email ended with dot
+15,contact..contact@paulcosma.com,email with two dots
+16,あいうえお@paulcosma.com,invalid characters
+17,contact@paulcosma.com (Paul Cosma),outlook format email
+18,contact@123.123,email with numbers

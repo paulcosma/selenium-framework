@@ -1,4 +1,4 @@
-package base;
+package data;
 
 import au.com.bytecode.opencsv.CSVReader;
 import org.testng.annotations.DataProvider;
