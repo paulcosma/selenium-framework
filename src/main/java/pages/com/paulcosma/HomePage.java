@@ -6,9 +6,14 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pages.com.paulcosma.external.Facebook;
 
 public class HomePage extends BasePageObject<HomePage> {
     public static Logger log = LogManager.getLogger(HomePage.class.getName());
+    String facebookIconDescription = "Facebook icon";
+    String twitterIconDescription = "Twitter icon";
+    String githubIconDescription = "Github icon";
+    String linkedinIconDescription = "Linkedin icon";
     //page elements
     private By logo = By.xpath("//img[@alt='Paul Cosma Logo']");
     private String logoDescription = "HomePage Logo";
@@ -18,8 +23,14 @@ public class HomePage extends BasePageObject<HomePage> {
     private String getNotifiedButtonDescription = "Get notified! button";
     private By helloMessage = By.cssSelector(".subtitle");
     private String helloMessageDescription = "Hello! We'll be ready soon ... ";
+    private By facebookIcon = By.cssSelector(".icoFacebook");
+    private By twitterIcon = By.cssSelector(".icoTwitter");
+    private By githubIcon = By.cssSelector(".icoGit");
+    private By linkedinIcon = By.cssSelector(".icoLinkedin");
     private By footerMessage = By.cssSelector(".copyright");
     private String footerMessageDescription = "Powered by Bootstrap";
+    private By footerLink = By.cssSelector(".copyright [target=_blank]");
+    private String footerLinkDescription = "Link from footer";
     private By hiddenFooterElement = By.id("hiddenFooter");
     private String hiddenFooterElementDescription = "Hidden Footer element";
 
@@ -80,6 +91,12 @@ public class HomePage extends BasePageObject<HomePage> {
     public String getFooterMessage() {
         log.info("Step: Get Footer message");
         return getText(footerMessage, footerMessageDescription);
+    }
+
+    public Facebook clickFacebookIcon() {
+        log.info("Step: Click Facebook icon");
+        click(facebookIcon, facebookIconDescription);
+        return new Facebook(driver);
     }
 
     public boolean isCorrectPageTitleDisplayed(String correctPageTitle) {

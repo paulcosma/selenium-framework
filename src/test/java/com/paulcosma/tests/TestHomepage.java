@@ -79,14 +79,16 @@ public class TestHomepage extends BaseTest {
                 "\nExpected: Alert is displayed = " + "false" + "\n");
     }
 
-    @Ignore
     @Test
     public void openSocialLinks() {
         HomePage homePage = new HomePage(driver);
         homePage
                 .openHomePage()
                 .waitForHomePageToLoad();
-
+        homePage.clickFacebookIcon();
+//        homePage.clickTwitterIcon();
+//        homePage.clickGithubIcon();
+//        homePage.clickLinkedinIcon();
     }
 
     @Ignore
@@ -96,7 +98,7 @@ public class TestHomepage extends BaseTest {
         homePage
                 .openHomePage()
                 .waitForHomePageToLoad();
-
+//        homePage.clickFooterLink();
     }
 
 }
