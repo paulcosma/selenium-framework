@@ -76,29 +76,46 @@ public class BasePageObject<T> {
         return title;
     }
 
-    private WebElement getElement(By element, String elementName) {
+    private WebElement getElement(By locator, String elementName) {
         try {
-            waitForPresenceOf(element, elementName);
-            return driver.findElement(element);
+            waitForPresenceOf(locator, elementName);
+            return driver.findElement(locator);
         } catch (Exception e) {
-            log.error("Issue: " + elementName + " element was not found! (locator = " + element.toString() + " )");
+            log.error("Issue: " + elementName + " element was not found! (locator = " + locator.toString() + " )");
             log.debug("Error message: " + e);
             throw (e);
         }
     }
 
     /**
+     * Checks if the element identified by locator is displayed or not.
+     *
+     * @param locator
+     * @param elementName
+     * @return Boolean, true - if element is displayed, false - otherwise
+     */
+    protected Boolean isDisplayed(By locator, String elementName) {
+        if (getElement(locator, elementName).isDisplayed()) {
+            log.debug(elementName + " element is displayed. (locator = " + locator.toString() + " )");
+            return true;
+        } else {
+            log.debug(elementName + " element is displayed. (locator = " + locator.toString() + " )");
+            return false;
+        }
+    }
+
+    /**
      * Identifies element and performs a click on it
      *
-     * @param element
+     * @param locator
      * @param elementName
      */
-    protected void click(By element, String elementName) {
+    protected void click(By locator, String elementName) {
         try {
-            waitForElementToBeClickable(element, elementName);
-            getElement(element, elementName).click();
+            waitForElementToBeClickable(locator, elementName);
+            getElement(locator, elementName).click();
         } catch (Exception e) {
-            log.error("Issue: " + elementName + " element was not clicked! (locator = " + element.toString() + " )");
+            log.error("Issue: " + elementName + " element was not clicked! (locator = " + locator.toString() + " )");
             log.debug("Error message: " + e);
             throw (e);
         }
@@ -108,17 +125,17 @@ public class BasePageObject<T> {
      * Locates an element and sends keys (performs a clear() before entering the value)
      *
      * @param text
-     * @param element
+     * @param locator
      * @param elementName
      */
-    protected void type(String text, By element, String elementName) {
+    protected void type(String text, By locator, String elementName) {
         try {
             log.debug("Filling " + elementName + " with: " + text);
-            WebElement webElement = getElement(element, elementName);
+            WebElement webElement = getElement(locator, elementName);
             webElement.clear();
             webElement.sendKeys(text);
         } catch (InvalidElementStateException e) {
-            log.error("Issue: Can't fill text on " + elementName + " element! (locator = " + element
+            log.error("Issue: Can't fill text on " + elementName + " element! (locator = " + locator
                     .toString() + " )");
             log.debug("Error message: " + e);
             throw (e);
@@ -127,20 +144,41 @@ public class BasePageObject<T> {
     }
 
     /**
+     * Get text of element
+     *
+     * @param locator
+     * @param elementName
+     * @return
+     */
+    protected String getText(By locator, String elementName) {
+        try {
+            String text = getElement(locator, elementName).getText();
+            log.debug("Text for element " + elementName + " = " + text);
+            return text;
+        } catch (Exception e) {
+            log.error("Issue: " + elementName + " error! (locator = " + locator.toString() + " )");
+            log.debug("Error message: " + e);
+            throw (e);
+        }
+    }
+
+    // -----------
+    // Alerts
+    // -----------
+
+    /**
      * Verifies if a potential alert is present
      *
      * @return true if present, false if not
      */
-    public boolean isAlertPresent() {
+    public boolean isAlertDisplayed() {
         log.info("Step: Verify alert");
         try {
             sleep(500);
             driver.switchTo().alert();
-            log.info("Actual result: " + "Alert is displayed = true");
             log.debug("Alert found and switched to it");
             return true;
         } catch (Exception e) {
-            log.info("Actual result: " + "Alert is displayed = false");
             log.debug("No alert found");
             return false;
         }
@@ -215,6 +253,10 @@ public class BasePageObject<T> {
         log.debug("Alert text = " + alertText);
         return alertText;
     }
+
+    // -----------
+    // Waits
+    // -----------
 
     /**
      * Wait for element to be clickable

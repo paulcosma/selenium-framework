@@ -12,7 +12,7 @@ import pages.com.paulcosma.HomePage;
 
 import java.util.Map;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class TestHomepage extends BaseTest {
     public static Logger log = LogManager.getLogger(TestHomepage.class.getName());
@@ -27,19 +27,19 @@ public class TestHomepage extends BaseTest {
         assertEquals(homePage.getCurrentUrl(), Constants.URL);
         assertEquals(homePage.getTitle(), Constants.HOMEPAGE_TITLE);
         //if you use JUnit, put the expected value first. If you use TestNG, put the actual value first.
-//        String actualUrl = homePage.getCurrentUrl();
-//        String actualPageTitle = homePage.getTitle();
-//        Assert.assertTrue(expectedPageTitle.equals(actualPageTitle), "\nPage title does not match.\nExpected: " +
-//                expectedPageTitle + " \nActual: " + actualPageTitle + "\n");
-//        Assert.assertTrue(homePage.isCorrectPageTitleDisplayed(expectedPageTitle), "Page title does not match");
     }
 
-    @Ignore
     @Test
     public void homepageElementsLoaded() {
-        //Verify Logo is displayed
-        //Verify Hello message is displayed
-        //Verify footer message is displated
+        HomePage homePage = new HomePage(driver);
+        homePage
+                .openHomePage()
+                .waitForHomePageToLoad();
+        Boolean isLogoDisplayed = homePage.isLogoDisplayed();
+        assertTrue(isLogoDisplayed, "\nLogo is not displayed.\nActual: Logo is displayed = " + isLogoDisplayed +
+                "\nExpected: Logo is displayed = " + "true" + "\n");
+        assertEquals(homePage.getHelloMessage(), Constants.HELLO_MESSAGE);
+        assertEquals(homePage.getFooterMessage(), Constants.FOOTER_MESSAGE);
     }
 
     @Test(dataProvider = "validEmails", dataProviderClass = HomepageData.class)
@@ -52,11 +52,10 @@ public class TestHomepage extends BaseTest {
                 .enterEmail(email)
                 .clickGetNotification();
         assertEquals(homePage.getAlertText(), Constants.EMAIL_ALERT_VALID);
-//        assertTrue(homePage.isAlertPresent());
-//        log.info("Expected result: " + "Alert is displayed = true");
-//        homePage.acceptAlert();
-//        assertFalse(homePage.isAlertPresent());
-//        log.info("Expected result: " + "Alert is displayed = false");
+        homePage.acceptAlert();
+        Boolean isAlertDisplayed = homePage.isAlertDisplayed();
+        assertFalse(isAlertDisplayed, "\nAlert is not closed.\nActual: Alert is displayed = " + isAlertDisplayed +
+                "\nExpected: Alert is displayed = " + "false" + "\n");
     }
 
     @Test(dataProvider = "CsvDataProvider", dataProviderClass = CsvDataProvider.class)
@@ -74,22 +73,29 @@ public class TestHomepage extends BaseTest {
                 .enterEmail(email)
                 .clickGetNotification();
         assertEquals(homePage.getAlertText(), Constants.EMAIL_ALERT_INVALID);
-//        assertTrue(homePage.isAlertPresent());
-//        log.info("Expected result: " + "Alert is displayed = true");
-//        homePage.acceptAlert();
-//        assertFalse(homePage.isAlertPresent());
-//        log.info("Expected result: " + "Alert is displayed = false");
+        homePage.acceptAlert();
+        Boolean isAlertDisplayed = homePage.isAlertDisplayed();
+        assertFalse(isAlertDisplayed, "\nAlert is not closed.\nActual: Alert is displayed = " + isAlertDisplayed +
+                "\nExpected: Alert is displayed = " + "false" + "\n");
     }
 
     @Ignore
     @Test
     public void openSocialLinks() {
+        HomePage homePage = new HomePage(driver);
+        homePage
+                .openHomePage()
+                .waitForHomePageToLoad();
 
     }
 
     @Ignore
     @Test
     public void openFooterLink() {
+        HomePage homePage = new HomePage(driver);
+        homePage
+                .openHomePage()
+                .waitForHomePageToLoad();
 
     }
 
