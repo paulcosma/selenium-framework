@@ -6,33 +6,34 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pages.com.paulcosma.external.Facebook;
+import pages.com.paulcosma.external.*;
 
 public class HomePage extends BasePageObject<HomePage> {
     public static Logger log = LogManager.getLogger(HomePage.class.getName());
-    String facebookIconDescription = "Facebook icon";
-    String twitterIconDescription = "Twitter icon";
-    String githubIconDescription = "Github icon";
-    String linkedinIconDescription = "Linkedin icon";
+    // page elements description - used for test steps and clarity of errors
+    private String logoDescription = "HomePage Logo";
+    private String emailFieldDescription = "Enter your email address field";
+    private String getNotifiedButtonDescription = "Get notified! button";
+    private String helloMessageDescription = "Hello! We'll be ready soon ... ";
+    private String facebookIconDescription = "Facebook icon";
+    private String twitterIconDescription = "Twitter icon";
+    private String githubIconDescription = "Github icon";
+    private String linkedinIconDescription = "Linkedin icon";
+    private String footerMessageDescription = "Powered by Bootstrap";
+    private String footerLinkDescription = "Link from footer";
+    private String hiddenFooterElementDescription = "Hidden Footer element";
     //page elements
     private By logo = By.xpath("//img[@alt='Paul Cosma Logo']");
-    private String logoDescription = "HomePage Logo";
     private By emailField = By.id("exampleInputEmail1");
-    private String emailFieldDescription = "Enter your email address field";
     private By getNotifiedButton = By.cssSelector("input[type='submit']");
-    private String getNotifiedButtonDescription = "Get notified! button";
     private By helloMessage = By.cssSelector(".subtitle");
-    private String helloMessageDescription = "Hello! We'll be ready soon ... ";
     private By facebookIcon = By.cssSelector(".icoFacebook");
     private By twitterIcon = By.cssSelector(".icoTwitter");
     private By githubIcon = By.cssSelector(".icoGit");
     private By linkedinIcon = By.cssSelector(".icoLinkedin");
     private By footerMessage = By.cssSelector(".copyright");
-    private String footerMessageDescription = "Powered by Bootstrap";
     private By footerLink = By.cssSelector(".copyright [target=_blank]");
-    private String footerLinkDescription = "Link from footer";
     private By hiddenFooterElement = By.id("hiddenFooter");
-    private String hiddenFooterElementDescription = "Hidden Footer element";
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -46,8 +47,7 @@ public class HomePage extends BasePageObject<HomePage> {
     }
 
     public HomePage waitForHomePageToLoad() {
-        log.info("Step: Wait for Home Page to load, logo to be displayed and enter your email address field" +
-                " to be displayed");
+        log.info("Step: Wait for Home Page to load");
         waitForVisibilityOf(logo, logoDescription);
         waitForVisibilityOf(emailField, emailFieldDescription, 30);
         return this;
@@ -97,6 +97,30 @@ public class HomePage extends BasePageObject<HomePage> {
         log.info("Step: Click Facebook icon");
         click(facebookIcon, facebookIconDescription);
         return new Facebook(driver);
+    }
+
+    public Twitter clickTwitterIcon() {
+        log.info("Step: Click Twitter icon");
+        click(twitterIcon, twitterIconDescription);
+        return new Twitter(driver);
+    }
+
+    public Github clickGithubIcon() {
+        log.info("Step: Click Github icon");
+        click(githubIcon, githubIconDescription);
+        return new Github(driver);
+    }
+
+    public Linkedin clickLinkedinIcon() {
+        log.info("Step: Click Linkedin icon");
+        click(linkedinIcon, linkedinIconDescription);
+        return new Linkedin(driver);
+    }
+
+    public Bootstrap clickFooterLink() {
+        log.info("Step: Click footer link");
+        click(footerLink, footerLinkDescription);
+        return new Bootstrap(driver);
     }
 
     public boolean isCorrectPageTitleDisplayed(String correctPageTitle) {

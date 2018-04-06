@@ -6,9 +6,9 @@ import data.com.paulcosma.Constants;
 import data.com.paulcosma.HomepageData;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.com.paulcosma.HomePage;
+import pages.com.paulcosma.external.*;
 
 import java.util.Map;
 
@@ -82,23 +82,53 @@ public class TestHomepage extends BaseTest {
     @Test
     public void openSocialLinks() {
         HomePage homePage = new HomePage(driver);
-        homePage
+
+        Facebook facebook = homePage
                 .openHomePage()
-                .waitForHomePageToLoad();
-        homePage.clickFacebookIcon();
-//        homePage.clickTwitterIcon();
-//        homePage.clickGithubIcon();
-//        homePage.clickLinkedinIcon();
+                .waitForHomePageToLoad()
+                .clickFacebookIcon()
+                .switchToWindowTab(1);
+        assertEquals(facebook.getCurrentUrl(), Constants.EXTERNAL_LINK_FACEBOOK);
+        facebook.closeWindowCurrentTab();
+
+        Twitter twitter = homePage
+                .switchToWindowTab(0)
+                .clickTwitterIcon()
+                .switchToWindowTab(1);
+        assertEquals(twitter.getCurrentUrl(), Constants.EXTERNAL_LINK_TWITTER);
+        twitter.closeWindowCurrentTab();
+
+        Github github = homePage
+                .switchToWindowTab(0)
+                .clickGithubIcon()
+                .switchToWindowTab(1);
+        assertEquals(github.getCurrentUrl(), Constants.EXTERNAL_LINK_GITHUB);
+        github.closeWindowCurrentTab();
+
+        Linkedin linkedin = homePage
+                .switchToWindowTab(0)
+                .clickLinkedinIcon()
+                .switchToWindowTab(1);
+        assertEquals(linkedin.getCurrentUrl(), Constants.EXTERNAL_LINK_LINKEDIN);
+        linkedin.closeWindowCurrentTab();
+        homePage
+                .switchToWindowTab(0);
     }
 
-    @Ignore
     @Test
     public void openFooterLink() {
         HomePage homePage = new HomePage(driver);
-        homePage
+
+        Bootstrap bootstrap = homePage
                 .openHomePage()
-                .waitForHomePageToLoad();
-//        homePage.clickFooterLink();
+                .waitForHomePageToLoad()
+                .switchToWindowTab(0)
+                .clickFooterLink()
+                .switchToWindowTab(1);
+        assertEquals(bootstrap.getCurrentUrl(), Constants.EXTERNAL_LINK_BOOTSTRAP);
+        bootstrap.closeWindowCurrentTab();
+        homePage
+                .switchToWindowTab(0);
     }
 
 }

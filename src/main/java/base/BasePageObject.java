@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+
 public class BasePageObject<T> {
     public static Logger log = LogManager.getLogger(BasePageObject.class.getName());
     protected WebDriver driver;
@@ -52,6 +54,10 @@ public class BasePageObject<T> {
             }
         }
         return (T) this;
+    }
+
+    public void refresh() {
+        driver.navigate().refresh();
     }
 
     /**
@@ -163,6 +169,40 @@ public class BasePageObject<T> {
     }
 
     // -----------
+    // Windows
+    // -----------
+
+    public ArrayList<String> getWindowTabs() {
+        try {
+            log.debug("Get window tabs");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            log.debug("Window Tabs = " + tabs);
+            return tabs;
+        } catch (Exception e) {
+            log.error("Issue: Get Windows tabs error = ", e);
+            log.debug("Error message: " + e);
+            throw (e);
+        }
+    }
+
+    public T switchToWindowTab(Integer tabNo) {
+        String tab = getWindowTabs().get(tabNo);
+        try {
+            log.debug("Switching to frame");
+            driver.switchTo().window(tab);
+            return (T) this;
+        } catch (Exception e) {
+            log.error("Issue: Switching to Window error = ", e);
+            log.debug("Error message: " + e);
+            throw (e);
+        }
+    }
+
+    public void closeWindowCurrentTab() {
+        driver.close();
+    }
+
+    // -----------
     // Alerts
     // -----------
 
@@ -255,6 +295,28 @@ public class BasePageObject<T> {
     }
 
     // -----------
+    // Javascript
+    // -----------
+
+    /**
+     * Returns a JavascriptExecutor object
+     *
+     * @return
+     */
+    public JavascriptExecutor javascript() {
+        return (JavascriptExecutor) driver;
+    }
+
+    public void openNewWindow() {
+        javascript().executeScript("window.open('', '', 'fullscreen=1,scrollbars=auto,toolbar=1,location=1,menubar=1');");
+    }
+
+    public void scrollToElement(By locator, String elementName) {
+        WebElement element = getElement(locator, elementName);
+        javascript().executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    // -----------
     // Waits
     // -----------
 
@@ -269,6 +331,7 @@ public class BasePageObject<T> {
         int attempts = 0;
         while (attempts < 2) {
             try {
+                log.debug("Wait for " + elementName + " to be clickable");
                 waitFor(ExpectedConditions.elementToBeClickable(locator), (timeOutInSeconds.length > 0 ?
                         timeOutInSeconds[0] : null));
                 break;
@@ -296,6 +359,7 @@ public class BasePageObject<T> {
         int attempts = 0;
         while (attempts < 2) {
             try {
+                log.debug("Wait for presence of " + elementName);
                 waitFor(ExpectedConditions.presenceOfElementLocated(locator), (timeOutInSeconds.length > 0 ?
                         timeOutInSeconds[0] : null));
                 break;
@@ -324,6 +388,7 @@ public class BasePageObject<T> {
         int attempts = 0;
         while (attempts < 2) {
             try {
+                log.debug("Wait for visibility of " + elementName);
                 waitFor(ExpectedConditions.visibilityOfElementLocated(locator), (timeOutInSeconds.length > 0 ?
                         timeOutInSeconds[0] : null));
                 break;
