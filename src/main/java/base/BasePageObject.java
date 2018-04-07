@@ -140,6 +140,8 @@ public class BasePageObject<T> {
             WebElement webElement = getElement(locator, elementName);
             webElement.clear();
             webElement.sendKeys(text);
+            log.debug("Text filled on " + elementName + " = " + getElement(locator,elementName).getAttribute
+                    ("value") + " Expected text on that field = " + text);
         } catch (InvalidElementStateException e) {
             log.error("Issue: Can't fill text on " + elementName + " element! (locator = " + locator
                     .toString() + " )");
