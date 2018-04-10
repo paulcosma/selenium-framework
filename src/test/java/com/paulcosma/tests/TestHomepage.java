@@ -109,7 +109,7 @@ public class TestHomepage extends BaseTest {
                 .switchToWindowTab(0)
                 .clickLinkedinIcon()
                 .switchToWindowTab(1);
-        assertEquals(linkedin.getCurrentUrl(), Constants.EXTERNAL_LINK_LINKEDIN);
+        assertTrue(linkedin.getCurrentUrl().contains(Constants.EXTERNAL_LINK_LINKEDIN));
         linkedin.closeWindowCurrentTab();
         homePage
                 .switchToWindowTab(0);
