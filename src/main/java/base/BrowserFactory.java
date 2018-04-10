@@ -45,12 +45,13 @@ public class BrowserFactory {
     public static String getAppEnvironment(String defaultEnv) {
         //get environment variable
         String envValue = System.getenv("appenv");
+        log.debug("System.getenv(appenv) = " + envValue);
         //if environment variable is not specified use defaultEnv
         if (envValue == null) {
             envValue = defaultEnv;
         }
         //if production environment is specified leave variable empty, else add a dot a environment is a subdomain
-        if (envValue == "production") {
+        if (envValue.equals("production")) {
             return "";
         } else {
             return envValue + ".";
