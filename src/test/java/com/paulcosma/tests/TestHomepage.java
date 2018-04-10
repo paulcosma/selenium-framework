@@ -109,7 +109,10 @@ public class TestHomepage extends BaseTest {
                 .switchToWindowTab(0)
                 .clickLinkedinIcon()
                 .switchToWindowTab(1);
-        assertTrue(linkedin.getCurrentUrl().contains(Constants.EXTERNAL_LINK_LINKEDIN));
+        assertTrue(linkedin.getCurrentUrl().contains(Constants.EXTERNAL_LINK_LINKEDIN), "\nLinkedin link is " +
+                "incorrect" +
+                ".\nActual: Linkedin link = " + linkedin.getCurrentUrl() +
+                "\nExpected: Linkedin link to contain = " + Constants.EXTERNAL_LINK_LINKEDIN + "\n");
         linkedin.closeWindowCurrentTab();
         homePage
                 .switchToWindowTab(0);
