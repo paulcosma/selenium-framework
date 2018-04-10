@@ -66,6 +66,15 @@
                     <!--<suiteXmlFiles>-->
                     <!--<suiteXmlFiles>src/test/resources/testng.xml</suiteXmlFiles>-->
                     <!--</suiteXmlFiles>-->
+                    <suiteXmlFiles>
+                        <file>src/test/resources/${suiteXmlFile}</file>
+                    </suiteXmlFiles>
+                    <properties>
+                        <property>
+                            <name>testnames</name>
+                            <value>${testNames}</value>
+                        </property>
+                    </properties>
                 </configuration>
             </plugin>
         </plugins>
