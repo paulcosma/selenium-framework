@@ -16,6 +16,6 @@ public class Constants {
     //Links
     public static String defaultEnv = "test";
     public static String protocol = "https://";
-    public static String domain = "paulcosma.com";
+    public static String domain = "paulcosma.com/";
     public static String URL = protocol + BrowserFactory.getAppEnvironment(defaultEnv) + domain;
 }
