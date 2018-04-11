@@ -3,6 +3,7 @@ package base;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,6 +33,27 @@ public class BasePageObject<T> {
             log.error("Error " + e.toString());
             e.printStackTrace();
         }
+    }
+
+    public String getBrowserName(){
+        Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
+        String browserName = cap.getBrowserName().toLowerCase();
+        log.debug("Browser name = " + browserName);
+        return browserName;
+    }
+
+    public String getBrowserVersion(){
+        Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
+        String browserVersion = cap.getVersion().toLowerCase();
+        log.debug("Browser version = " + browserVersion);
+        return browserVersion;
+    }
+
+    public String getPlatform(){
+        Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
+        String platform = cap.getPlatform().toString().toLowerCase();
+        log.debug("Browser name = " + platform);
+        return platform;
     }
 
     /**
@@ -188,6 +210,9 @@ public class BasePageObject<T> {
     }
 
     public T switchToWindowTab(Integer tabNo) {
+        if (getBrowserName().equals("firefox")){
+            sleep(2000); // to avoid firefox fail
+        }
         String tab = getWindowTabs().get(tabNo);
         try {
             log.debug("Switching to frame");
