@@ -35,21 +35,21 @@ public class BasePageObject<T> {
         }
     }
 
-    public String getBrowserName(){
+    public String getBrowserName() {
         Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
         String browserName = cap.getBrowserName().toLowerCase();
         log.debug("Browser name = " + browserName);
         return browserName;
     }
 
-    public String getBrowserVersion(){
+    public String getBrowserVersion() {
         Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
         String browserVersion = cap.getVersion().toLowerCase();
         log.debug("Browser version = " + browserVersion);
         return browserVersion;
     }
 
-    public String getPlatform(){
+    public String getPlatform() {
         Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
         String platform = cap.getPlatform().toString().toLowerCase();
         log.debug("Browser name = " + platform);
@@ -210,8 +210,8 @@ public class BasePageObject<T> {
     }
 
     public T switchToWindowTab(Integer tabNo) {
-        if (getBrowserName().equals("firefox")){
-            sleep(2000); // to avoid firefox fail
+        if (getBrowserName().equals("firefox")) {
+            sleep(3000); // to avoid firefox fail
         }
         String tab = getWindowTabs().get(tabNo);
         try {

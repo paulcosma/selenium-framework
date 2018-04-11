@@ -2,7 +2,7 @@ package data.com.paulcosma;
 
 import org.testng.annotations.DataProvider;
 
-public class HomepageData {
+public class EmailData {
 
     @DataProvider(name = "validEmails")
     public static Object[][] validEmails() {
