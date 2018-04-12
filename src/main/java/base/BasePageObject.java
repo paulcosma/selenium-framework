@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
@@ -212,6 +213,7 @@ public class BasePageObject<T> {
     public T switchToWindowTab(Integer tabNo) {
         if (getBrowserName().equals("firefox")) {
             sleep(3000); // to avoid firefox fail
+            waitForPageToLoad();
         }
         String tab = getWindowTabs().get(tabNo);
         try {
@@ -426,6 +428,18 @@ public class BasePageObject<T> {
             } catch (StaleElementReferenceException e) {
             }
             attempts++;
+        }
+    }
+
+    public void waitForPageToLoad() {
+        try {
+            wait.until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver driver) {
+                    return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+                }
+            });
+        } catch (Throwable error) {
+            log.error("Timeout waiting for Page Load Request to complete.");
         }
     }
 
