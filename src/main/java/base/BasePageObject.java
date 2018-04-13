@@ -1,14 +1,17 @@
 package base;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class BasePageObject<T> {
@@ -321,6 +324,33 @@ public class BasePageObject<T> {
         String alertText = driver.switchTo().alert().getText();
         log.debug("Alert text = " + alertText);
         return alertText;
+    }
+
+    /**
+     * Take a screenshot
+     *
+     * @param name
+     */
+    public void takeScreenshot(String name) {
+        File screenshot;
+        String screenshotPath = "test-output" + File.separator + "screenshots" + File.separator;
+        String screenshotName = name + Utils.getCurrentTime("yyyy-MM-dd_HH-mm-ss.SSS") + ".png";
+        try {
+            if (this.driver.getClass().getName().equals("org.openqa.selenium.remote.RemoteWebDriver")) {
+                screenshot = ((TakesScreenshot) new Augmenter().augment(this.driver)).getScreenshotAs(OutputType.FILE);
+            } else {
+                screenshot = ((TakesScreenshot) this.driver).getScreenshotAs(OutputType.FILE);
+            }
+            try {
+                File screenshotFile = new File(screenshotPath + screenshotName);
+                FileUtils.copyFile(screenshot, screenshotFile);
+                log.info("Screenshot " + screenshotFile.getCanonicalPath() + " taken");
+            } catch (Exception e) {
+                log.error("Exception moving screenshot file. " + e.toString());
+            }
+        } catch (Exception e) {
+            log.error("Exception taking screenshot. " + e.toString());
+        }
     }
 
     // -----------
