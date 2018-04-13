@@ -16,12 +16,39 @@ import java.util.ArrayList;
 
 public class BasePageObject<T> {
     public static Logger log = LogManager.getLogger(BasePageObject.class.getName());
-    protected WebDriver driver;
+    protected static WebDriver driver;
     protected WebDriverWait wait;
 
     protected BasePageObject(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 60);
+    }
+
+    /**
+     * Take a screenshot
+     *
+     * @param name
+     */
+    public static void takeScreenshot(String name) {
+        File screenshot;
+        String screenshotPath = "test-output" + File.separator + "screenshots" + File.separator;
+        String screenshotName = name + Utils.getCurrentTime("yyyy-MM-dd_HH-mm-ss.SSS") + ".png";
+        try {
+            if (driver.getClass().getName().equals("org.openqa.selenium.remote.RemoteWebDriver")) {
+                screenshot = ((TakesScreenshot) new Augmenter().augment(driver)).getScreenshotAs(OutputType.FILE);
+            } else {
+                screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            }
+            try {
+                File screenshotFile = new File(screenshotPath + screenshotName);
+                FileUtils.copyFile(screenshot, screenshotFile);
+                log.info("Screenshot " + screenshotFile.getCanonicalPath() + " taken");
+            } catch (Exception e) {
+                log.error("Exception moving screenshot file. " + e.toString());
+            }
+        } catch (Exception e) {
+            log.error("Exception taking screenshot. " + e.toString());
+        }
     }
 
     /**
@@ -34,6 +61,7 @@ public class BasePageObject<T> {
             log.debug("Waiting for " + millis + " milliseconds");
             Thread.sleep(millis);
         } catch (InterruptedException e) {
+            takeScreenshot("Error-sleep-");
             log.error("Error " + e.toString());
             e.printStackTrace();
         }
@@ -72,10 +100,12 @@ public class BasePageObject<T> {
         try {
             driver.get(url);
         } catch (TimeoutException ex) {
+            takeScreenshot("Error-goTo-");
             try {
                 log.debug("Page was not fully loaded in the expected time. Sending ESC key.");
                 driver.findElement(By.tagName("body")).sendKeys(Keys.ESCAPE);
             } catch (Exception e) {
+                takeScreenshot("Error-goTo-");
                 log.error("Exception when sending ESC key in attempt to stop page load");
             }
         }
@@ -113,6 +143,7 @@ public class BasePageObject<T> {
             waitForPresenceOf(locator, elementName);
             return driver.findElement(locator);
         } catch (Exception e) {
+            takeScreenshot("Error-getElement-");
             log.error("Issue: " + elementName + " element was not found! (locator = " + locator.toString() + " )");
             log.debug("Error message: " + e);
             throw (e);
@@ -131,6 +162,8 @@ public class BasePageObject<T> {
             log.debug(elementName + " element is displayed. (locator = " + locator.toString() + " )");
             return true;
         } else {
+            takeScreenshot(getClass().getDeclaringClass().getSimpleName() + "_"
+                    + getClass().getEnclosingMethod().getName());
             log.debug(elementName + " element is displayed. (locator = " + locator.toString() + " )");
             return false;
         }
@@ -147,6 +180,7 @@ public class BasePageObject<T> {
             waitForElementToBeClickable(locator, elementName);
             getElement(locator, elementName).click();
         } catch (Exception e) {
+            takeScreenshot("Error-click-");
             log.error("Issue: " + elementName + " element was not clicked! (locator = " + locator.toString() + " )");
             log.debug("Error message: " + e);
             throw (e);
@@ -169,11 +203,13 @@ public class BasePageObject<T> {
             log.debug("Text filled on " + elementName + " = " + getElement(locator, elementName).getAttribute
                     ("value") + " Expected text on that field = " + text);
         } catch (InvalidElementStateException e) {
+            takeScreenshot("Error-type-");
             log.error("Issue: Can't fill text on " + elementName + " element! (locator = " + locator
                     .toString() + " )");
             log.debug("Error message: " + e);
             throw (e);
         } catch (StaleElementReferenceException e) {
+            takeScreenshot("Error-type-");
         }
     }
 
@@ -190,6 +226,7 @@ public class BasePageObject<T> {
             log.debug("Text for element " + elementName + " = " + text);
             return text;
         } catch (Exception e) {
+            takeScreenshot("Error-getText-");
             log.error("Issue: " + elementName + " error! (locator = " + locator.toString() + " )");
             log.debug("Error message: " + e);
             throw (e);
@@ -207,6 +244,7 @@ public class BasePageObject<T> {
             log.debug("Window Tabs = " + tabs);
             return tabs;
         } catch (Exception e) {
+            takeScreenshot("Error-getWindowTabs-");
             log.error("Issue: Get Windows tabs error = ", e);
             log.debug("Error message: " + e);
             throw (e);
@@ -220,10 +258,11 @@ public class BasePageObject<T> {
         }
         String tab = getWindowTabs().get(tabNo);
         try {
-            log.debug("Switching to frame");
+            log.debug("Switching to tab");
             driver.switchTo().window(tab);
             return (T) this;
         } catch (Exception e) {
+            takeScreenshot("Error-switchToWindowTab-");
             log.error("Issue: Switching to Window error = ", e);
             log.debug("Error message: " + e);
             throw (e);
@@ -231,7 +270,15 @@ public class BasePageObject<T> {
     }
 
     public void closeWindowCurrentTab() {
-        driver.close();
+        try {
+            log.debug("Closing Window Current tab");
+            driver.close();
+        } catch (Exception e) {
+            takeScreenshot("Error-closeWindowCurrentTab-");
+            log.error("Issue: Closing Window current tab error = ", e);
+            log.debug("Error message: " + e);
+            throw (e);
+        }
     }
 
     // -----------
@@ -251,6 +298,7 @@ public class BasePageObject<T> {
             log.debug("Alert found and switched to it");
             return true;
         } catch (Exception e) {
+            takeScreenshot("Error-isAlertDisplayed-");
             log.debug("No alert found");
             return false;
         }
@@ -268,6 +316,7 @@ public class BasePageObject<T> {
             alert.accept();
             log.debug("Alert found and accepted");
         } catch (Exception e) {
+            takeScreenshot("Error-acceptAlert-");
             log.error("Issue: No alert found");
             log.debug("Error message: " + e);
             throw (e);
@@ -289,6 +338,7 @@ public class BasePageObject<T> {
                     break;
                 }
             } catch (NoAlertPresentException e) {
+                takeScreenshot("Error-acceptAlertIfExists-");
                 log.debug("No alert found");
                 log.debug("Error message: " + e);
             }
@@ -307,6 +357,7 @@ public class BasePageObject<T> {
             alert.dismiss();
             log.debug("Alert found and dismissed");
         } catch (Exception e) {
+            takeScreenshot("Error-cancelAlert-");
             log.error("Issue: No alert found");
             log.debug("Error message: " + e);
             throw (e);
@@ -324,33 +375,6 @@ public class BasePageObject<T> {
         String alertText = driver.switchTo().alert().getText();
         log.debug("Alert text = " + alertText);
         return alertText;
-    }
-
-    /**
-     * Take a screenshot
-     *
-     * @param name
-     */
-    public void takeScreenshot(String name) {
-        File screenshot;
-        String screenshotPath = "test-output" + File.separator + "screenshots" + File.separator;
-        String screenshotName = name + Utils.getCurrentTime("yyyy-MM-dd_HH-mm-ss.SSS") + ".png";
-        try {
-            if (this.driver.getClass().getName().equals("org.openqa.selenium.remote.RemoteWebDriver")) {
-                screenshot = ((TakesScreenshot) new Augmenter().augment(this.driver)).getScreenshotAs(OutputType.FILE);
-            } else {
-                screenshot = ((TakesScreenshot) this.driver).getScreenshotAs(OutputType.FILE);
-            }
-            try {
-                File screenshotFile = new File(screenshotPath + screenshotName);
-                FileUtils.copyFile(screenshot, screenshotFile);
-                log.info("Screenshot " + screenshotFile.getCanonicalPath() + " taken");
-            } catch (Exception e) {
-                log.error("Exception moving screenshot file. " + e.toString());
-            }
-        } catch (Exception e) {
-            log.error("Exception taking screenshot. " + e.toString());
-        }
     }
 
     // -----------
@@ -395,11 +419,13 @@ public class BasePageObject<T> {
                         timeOutInSeconds[0] : null));
                 break;
             } catch (TimeoutException e) {
+                takeScreenshot("Error-waitForElementToBeClickable-");
                 log.error("Issue: " + elementName + " element is not clickable! (locator = " + locator.toString() + "" +
                         " )");
                 log.debug("Error message: " + e);
                 throw (e);
             } catch (StaleElementReferenceException e) {
+                takeScreenshot("Error-waitForElementToBeClickable-");
             }
             attempts++;
         }
@@ -423,10 +449,12 @@ public class BasePageObject<T> {
                         timeOutInSeconds[0] : null));
                 break;
             } catch (TimeoutException e) {
+                takeScreenshot("Error-waitForPresenceOf-");
                 log.error("Issue: " + elementName + " element is not present! (locator = " + locator.toString() + " )");
                 log.debug("Error message: " + e);
                 throw (e);
             } catch (StaleElementReferenceException e) {
+                takeScreenshot("Error-waitForPresenceOf-");
             }
             attempts++;
         }
@@ -452,15 +480,23 @@ public class BasePageObject<T> {
                         timeOutInSeconds[0] : null));
                 break;
             } catch (TimeoutException e) {
+                takeScreenshot("Error-waitForVisibilityOf-");
                 log.error("Issue: " + elementName + " element is not visible! (locator = " + locator.toString() + " )");
                 log.debug("Error message: " + e);
                 throw (e);
             } catch (StaleElementReferenceException e) {
+                takeScreenshot("Error-waitForVisibilityOf-");
             }
             attempts++;
         }
     }
 
+    /**
+     * Even though the WebDriver itself performs a wait after each driver.get(); There are times when that is not
+     * enough and some extra wait needs to be performed in order to avoid the use of Thread.sleep() or d.sleep()
+     * methods.
+     * This method is based on javascript document.readyState which tells when the page is entirely loaded.
+     */
     public void waitForPageToLoad() {
         try {
             wait.until(new ExpectedCondition<Boolean>() {
@@ -469,6 +505,7 @@ public class BasePageObject<T> {
                 }
             });
         } catch (Throwable error) {
+            takeScreenshot("Error-waitForPageToLoad-");
             log.error("Timeout waiting for Page Load Request to complete.");
         }
     }

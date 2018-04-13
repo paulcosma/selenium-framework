@@ -16,10 +16,10 @@ public class TestHomepage extends BaseTest {
     @Test
     public void homepageLoaded() {
         HomePage homePage = new HomePage(driver);
+
         homePage
                 .openHomePage()
                 .waitForHomePageToLoad();
-
         assertEquals(homePage.getCurrentUrl(), Constants.URL);
         assertEquals(homePage.getTitle(), Constants.HOMEPAGE_TITLE);
         //if you use JUnit, put the expected value first. If you use TestNG, put the actual value first.
@@ -28,6 +28,7 @@ public class TestHomepage extends BaseTest {
     @Test
     public void homepageElementsLoaded() {
         HomePage homePage = new HomePage(driver);
+
         homePage
                 .openHomePage()
                 .waitForHomePageToLoad();

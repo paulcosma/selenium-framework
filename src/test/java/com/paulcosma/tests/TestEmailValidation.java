@@ -21,6 +21,7 @@ public class TestEmailValidation extends BaseTest {
     public void enterValidEmail(String email, String testNumber) {
         log.info("Test enterValidEmail number #" + testNumber + " with email = " + email);
         HomePage homePage = new HomePage(driver);
+
         homePage
                 .openHomePage()
                 .waitForHomePageToLoad()
@@ -40,8 +41,8 @@ public class TestEmailValidation extends BaseTest {
         String description = testData.get("description");
         log.info("Test enterInvalidEmail number #" + testNumber + " with: " + description + " where email" + " " +
                 "= " + email);
-
         HomePage homePage = new HomePage(driver);
+
         homePage
                 .openHomePage()
                 .waitForHomePageToLoad()
