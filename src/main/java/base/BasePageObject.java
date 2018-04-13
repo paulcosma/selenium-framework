@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class BasePageObject<T> {
     public static Logger log = LogManager.getLogger(BasePageObject.class.getName());
-    protected static WebDriver driver;
+    protected WebDriver driver;
     protected WebDriverWait wait;
 
     protected BasePageObject(WebDriver driver) {
@@ -29,7 +29,7 @@ public class BasePageObject<T> {
      *
      * @param name
      */
-    public static void takeScreenshot(String name) {
+    public void takeScreenshot(String name) {
         File screenshot;
         String screenshotPath = "test-output" + File.separator + "screenshots" + File.separator;
         String screenshotName = name + Utils.getCurrentTime("yyyy-MM-dd_HH-mm-ss.SSS") + ".png";

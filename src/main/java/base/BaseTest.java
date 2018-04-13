@@ -28,8 +28,9 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     protected void tearDown(Method method) {
+        BasePageObject basePageObject = new BasePageObject(driver);
         String testName = method.getDeclaringClass().getSimpleName() + "_" + method.getName();
-        BasePageObject.takeScreenshot(testName);
+        basePageObject.takeScreenshot(testName);
         log.debug("Quit driver");
         driver.quit();
     }
