@@ -1,16 +1,26 @@
 package tk.bebeonline.tests;
 
 import base.BaseTest;
+import data.tk.bebeonline.Constants;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
+import pages.tk.bebeonline.HomePage;
+
+import static org.testng.Assert.assertEquals;
 
 public class TestHomepage extends BaseTest {
-    public static Logger log = LogManager.getLogger(com.paulcosma.tests.TestHomepage.class.getName());
+    public static Logger log = LogManager.getLogger(tk.bebeonline.tests.TestHomepage.class.getName());
 
     @Test
     public void homepageLoaded() {
-        driver.get("https://bebeonline.tk");
+        HomePage homePage = new HomePage(driver);
+
+        homePage
+                .openHomePage()
+                .waitForHomePageToLoad();
+        assertEquals(homePage.getCurrentUrl(), Constants.URL);
+        assertEquals(homePage.getTitle(), Constants.HOMEPAGE_TITLE);
     }
 
 }
