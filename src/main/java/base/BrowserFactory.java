@@ -43,9 +43,9 @@ public class BrowserFactory {
      * @return
      */
     public static String getTestingEnvironment(String defaultEnv) {
-        String testingEnv = System.getenv("appenv");
+        String testingEnv = System.getenv("testEnv");
         log.debug("Default environment defaultEnv = " + defaultEnv);
-        log.debug("Environment variable System.getenv(appenv) = " + testingEnv);
+        log.debug("Environment variable System.getenv(testEnv) = " + testingEnv);
         if (testingEnv == null || testingEnv.isEmpty()) {
             testingEnv = defaultEnv;
         }
