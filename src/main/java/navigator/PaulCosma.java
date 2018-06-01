@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import pages.com.paulcosma.HomePage;
 
-public class PaulCosma extends MyDriver {
+public class PaulCosma extends MyDriver<PaulCosma> {
     public static Logger log = LogManager.getLogger(PaulCosma.class.getName());
 
     public PaulCosma(WebDriver driver) {

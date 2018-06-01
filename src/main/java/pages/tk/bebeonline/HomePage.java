@@ -8,10 +8,10 @@ import org.openqa.selenium.WebDriver;
 
 public class HomePage extends MyDriver<HomePage> {
     public static Logger log = LogManager.getLogger(HomePage.class.getName());
-    // Page elements description - used for test steps and clarity of errors.
-    private String logoDescription = "HomePage Logo";
     // Page elements.
     private By logo = By.id("logo");
+    // Page elements description - used for test steps and clarity of errors.
+    private String logoDescription = "HomePage Logo";
 
     public HomePage(WebDriver driver) {
         super(driver);

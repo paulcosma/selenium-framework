@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import pages.tk.bebeonline.AdminPage;
 import pages.tk.bebeonline.HomePage;
 
-public class BebeOnline extends MyDriver {
+public class BebeOnline extends MyDriver<BebeOnline> {
     public static Logger log = LogManager.getLogger(BebeOnline.class.getName());
 
     public BebeOnline(WebDriver driver) {

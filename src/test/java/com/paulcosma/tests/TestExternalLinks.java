@@ -6,7 +6,6 @@ import navigator.Navigator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
-import pages.com.paulcosma.HomePage;
 import pages.com.paulcosma.external.*;
 
 import static org.testng.Assert.assertEquals;

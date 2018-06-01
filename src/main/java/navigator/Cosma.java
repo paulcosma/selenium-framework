@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import pages.tk.cosma.HomePage;
 
-public class Cosma extends MyDriver {
+public class Cosma extends MyDriver<Cosma> {
     public static Logger log = LogManager.getLogger(Cosma.class.getName());
 
     public Cosma(WebDriver driver) {

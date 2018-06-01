@@ -1,7 +1,6 @@
 package pages.com.paulcosma;
 
 import base.MyDriver;
-import data.com.paulcosma.Constants;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -10,18 +9,6 @@ import pages.com.paulcosma.external.*;
 
 public class HomePage extends MyDriver<HomePage> {
     public static Logger log = LogManager.getLogger(HomePage.class.getName());
-    // Page elements description - used for test steps and clarity of errors.
-    private String logoDescription = "HomePage Logo";
-    private String emailFieldDescription = "Enter your email address field";
-    private String getNotifiedButtonDescription = "Get notified! button";
-    private String helloMessageDescription = "Hello! We'll be ready soon ... ";
-    private String facebookIconDescription = "Facebook icon";
-    private String twitterIconDescription = "Twitter icon";
-    private String githubIconDescription = "Github icon";
-    private String linkedinIconDescription = "Linkedin icon";
-    private String footerMessageDescription = "Powered by Bootstrap";
-    private String footerLinkDescription = "Link from footer";
-    private String hiddenFooterElementDescription = "Hidden Footer element";
     // Page elements.
     private By logo = By.xpath("//img[@alt='Paul Cosma Logo']");
     private By emailField = By.id("exampleInputEmail1");
@@ -34,6 +21,18 @@ public class HomePage extends MyDriver<HomePage> {
     private By footerMessage = By.cssSelector(".copyright");
     private By footerLink = By.cssSelector(".copyright [target=_blank]");
     private By hiddenFooterElement = By.id("hiddenFooter");
+    // Page elements description - used for test steps and clarity of errors.
+    private String logoDescription = "HomePage Logo";
+    private String emailFieldDescription = "Enter your email address field";
+    private String getNotifiedButtonDescription = "Get notified! button";
+    private String helloMessageDescription = "Hello! We'll be ready soon ... ";
+    private String facebookIconDescription = "Facebook icon";
+    private String twitterIconDescription = "Twitter icon";
+    private String githubIconDescription = "Github icon";
+    private String linkedinIconDescription = "Linkedin icon";
+    private String footerMessageDescription = "Powered by Bootstrap";
+    private String footerLinkDescription = "Link from footer";
+    private String hiddenFooterElementDescription = "Hidden Footer element";
 
     public HomePage(WebDriver driver) {
         super(driver);

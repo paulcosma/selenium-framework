@@ -45,7 +45,7 @@ public class TestEmailValidation extends Setup {
                 "= " + email);
         Navigator navigator = new Navigator(driver);
 
-        HomePage homePage =navigator
+        HomePage homePage = navigator
                 .paulcosma
                 .goToHomePage()
                 .waitForHomePageToLoad()
