@@ -23,16 +23,4 @@ public class TestHomepage extends Setup {
         assertEquals(navigator.getCurrentUrl(), Constants.URL);
         assertEquals(navigator.getTitle(), Constants.HOMEPAGE_TITLE);
     }
-
-    @Test
-    public void adminPageLoaded() {
-        Navigator navigator = new Navigator(driver);
-
-        navigator
-                .bebeonline
-                .goToAdminPage()
-                .waitForAdminPageToLoad();
-        assertEquals(navigator.getCurrentUrl(), Constants.ADMIN_URL);
-        assertEquals(navigator.getTitle(), Constants.ADMINPAGE_TITLE);
-    }
 }

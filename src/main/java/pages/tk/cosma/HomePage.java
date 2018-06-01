@@ -1,7 +1,6 @@
 package pages.tk.cosma;
 
 import base.MyDriver;
-import data.tk.cosma.Constants;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -18,13 +17,6 @@ public class HomePage extends MyDriver<HomePage> {
 
     public HomePage(WebDriver driver) {
         super(driver);
-    }
-
-    public HomePage openHomePage() {
-        log.info("Steps to reproduce:");
-        log.info("Step: Go to homepage: " + Constants.URL);
-        goTo(Constants.URL, "home");
-        return this;
     }
 
     public HomePage waitForHomePageToLoad() {

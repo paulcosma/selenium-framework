@@ -2,6 +2,7 @@ package tk.cosma.tests;
 
 import base.Setup;
 import data.tk.cosma.Constants;
+import navigator.Navigator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
@@ -15,21 +16,23 @@ public class TestHomepage extends Setup {
 
     @Test
     public void homepageLoaded() {
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        homePage
-                .openHomePage()
+        navigator
+                .cosma
+                .goToHomepage()
                 .waitForHomePageToLoad();
-        assertEquals(homePage.getCurrentUrl(), Constants.URL);
-        assertEquals(homePage.getTitle(), Constants.HOMEPAGE_TITLE);
+        assertEquals(navigator.getCurrentUrl(), Constants.URL);
+        assertEquals(navigator.getTitle(), Constants.HOMEPAGE_TITLE);
     }
 
     @Test
     public void homepageElementsLoaded() {
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        homePage
-                .openHomePage()
+        HomePage homePage = navigator
+                .cosma
+                .goToHomepage()
                 .waitForHomePageToLoad();
         Boolean isLogoDisplayed = homePage.isLogoDisplayed();
         assertTrue(isLogoDisplayed, "\nLogo is not displayed.\nActual: Logo is displayed = " + isLogoDisplayed +
@@ -40,5 +43,4 @@ public class TestHomepage extends Setup {
                 "\nExpected: Intro Title is displayed = " + "true" + "\n");
         assertEquals(homePage.getIntroTitleMessage(), Constants.INTRO_TITLE);
     }
-
 }
