@@ -1,6 +1,6 @@
 package tk.cosma.tests;
 
-import base.BaseTest;
+import base.Setup;
 import data.tk.cosma.Constants;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -10,7 +10,7 @@ import pages.tk.cosma.HomePage;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class TestHomepage extends BaseTest {
+public class TestHomepage extends Setup {
     public static Logger log = LogManager.getLogger(tk.cosma.tests.TestHomepage.class.getName());
 
     @Test

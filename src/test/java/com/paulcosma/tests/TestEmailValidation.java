@@ -1,6 +1,6 @@
 package com.paulcosma.tests;
 
-import base.BaseTest;
+import base.Setup;
 import data.CsvDataProvider;
 import data.com.paulcosma.Constants;
 import data.com.paulcosma.EmailData;
@@ -14,7 +14,7 @@ import java.util.Map;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
-public class TestEmailValidation extends BaseTest {
+public class TestEmailValidation extends Setup {
     public static Logger log = LogManager.getLogger(TestEmailValidation.class.getName());
 
     @Test(dataProvider = "validEmails", dataProviderClass = EmailData.class)

@@ -1,6 +1,6 @@
 package com.paulcosma.tests;
 
-import base.BaseTest;
+import base.Setup;
 import data.com.paulcosma.Constants;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -11,7 +11,7 @@ import pages.com.paulcosma.external.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class TestExternalLinks extends BaseTest {
+public class TestExternalLinks extends Setup {
     public static Logger log = LogManager.getLogger(TestExternalLinks.class.getName());
 
     @Test

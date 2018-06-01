@@ -9,8 +9,8 @@ import org.testng.annotations.Parameters;
 
 import java.lang.reflect.Method;
 
-public class BaseTest {
-    public static Logger log = LogManager.getLogger(BaseTest.class.getName());
+public class Setup {
+    public static Logger log = LogManager.getLogger(Setup.class.getName());
     protected WebDriver driver;
 
     @BeforeMethod(alwaysRun = true)
