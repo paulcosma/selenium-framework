@@ -1,11 +1,11 @@
 package pages.com.paulcosma.external;
 
-import base.BasePageObject;
+import base.MyDriver;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
-public class Bootstrap extends BasePageObject<Bootstrap> {
+public class Bootstrap extends MyDriver<Bootstrap> {
     public static Logger log = LogManager.getLogger(Bootstrap.class.getName());
     // Page elements.
 

@@ -14,12 +14,12 @@ import utils.Utils;
 import java.io.File;
 import java.util.ArrayList;
 
-public class BasePageObject<T> {
-    public static Logger log = LogManager.getLogger(BasePageObject.class.getName());
+public class MyDriver<T> {
+    public static Logger log = LogManager.getLogger(MyDriver.class.getName());
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    protected BasePageObject(WebDriver driver) {
+    protected MyDriver(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 60);
     }

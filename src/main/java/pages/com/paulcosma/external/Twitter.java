@@ -1,11 +1,11 @@
 package pages.com.paulcosma.external;
 
-import base.BasePageObject;
+import base.MyDriver;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
-public class Twitter extends BasePageObject<Twitter> {
+public class Twitter extends MyDriver<Twitter> {
     public static Logger log = LogManager.getLogger(Twitter.class.getName());
     // Page elements.
 

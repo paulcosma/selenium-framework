@@ -1,6 +1,6 @@
 package pages.com.paulcosma;
 
-import base.BasePageObject;
+import base.MyDriver;
 import data.com.paulcosma.Constants;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.com.paulcosma.external.*;
 
-public class HomePage extends BasePageObject<HomePage> {
+public class HomePage extends MyDriver<HomePage> {
     public static Logger log = LogManager.getLogger(HomePage.class.getName());
     // Page elements description - used for test steps and clarity of errors.
     private String logoDescription = "HomePage Logo";

@@ -28,9 +28,9 @@ public class Setup {
 
     @AfterMethod(alwaysRun = true)
     protected void tearDown(Method method) {
-        BasePageObject basePageObject = new BasePageObject(driver);
+        MyDriver myDriver = new MyDriver(driver);
         String testName = method.getDeclaringClass().getSimpleName() + "_" + method.getName();
-        basePageObject.takeScreenshot(testName);
+        myDriver.takeScreenshot(testName);
         log.debug("Quit driver");
         driver.quit();
     }
