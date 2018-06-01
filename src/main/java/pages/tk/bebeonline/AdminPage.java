@@ -6,19 +6,19 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class HomePage extends MyDriver<HomePage> {
-    public static Logger log = LogManager.getLogger(HomePage.class.getName());
+public class AdminPage extends MyDriver<AdminPage> {
+    public static Logger log = LogManager.getLogger(AdminPage.class.getName());
     // Page elements description - used for test steps and clarity of errors.
-    private String logoDescription = "HomePage Logo";
+    private String logoDescription = "Admin Page Logo";
     // Page elements.
-    private By logo = By.id("logo");
+    private By logo = By.id("header-logo");
 
-    public HomePage(WebDriver driver) {
+    public AdminPage(WebDriver driver) {
         super(driver);
     }
 
-    public HomePage waitForHomePageToLoad() {
-        log.info("Step: Wait for Home Page to load");
+    public AdminPage waitForAdminPageToLoad() {
+        log.info("Step: Wait for Admin Page to load");
         waitForVisibilityOf(logo, logoDescription);
         return this;
     }

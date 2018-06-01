@@ -2,10 +2,10 @@ package tk.bebeonline.tests;
 
 import base.Setup;
 import data.tk.bebeonline.Constants;
+import navigator.Navigator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
-import pages.tk.bebeonline.HomePage;
 
 import static org.testng.Assert.assertEquals;
 
@@ -14,13 +14,25 @@ public class TestHomepage extends Setup {
 
     @Test
     public void homepageLoaded() {
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        homePage
-                .openHomePage()
+        navigator
+                .bebeonline
+                .goToHomepage()
                 .waitForHomePageToLoad();
-        assertEquals(homePage.getCurrentUrl(), Constants.URL);
-        assertEquals(homePage.getTitle(), Constants.HOMEPAGE_TITLE);
+        assertEquals(navigator.getCurrentUrl(), Constants.URL);
+        assertEquals(navigator.getTitle(), Constants.HOMEPAGE_TITLE);
     }
 
+    @Test
+    public void adminPageLoaded() {
+        Navigator navigator = new Navigator(driver);
+
+        navigator
+                .bebeonline
+                .goToAdminPage()
+                .waitForAdminPageToLoad();
+        assertEquals(navigator.getCurrentUrl(), Constants.ADMIN_URL);
+        assertEquals(navigator.getTitle(), Constants.ADMINPAGE_TITLE);
+    }
 }
