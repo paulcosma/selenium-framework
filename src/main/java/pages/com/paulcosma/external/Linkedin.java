@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 public class Linkedin extends BasePageObject<Linkedin> {
     public static Logger log = LogManager.getLogger(Linkedin.class.getName());
-    //page elements
+    // Page elements.
 
     public Linkedin(WebDriver driver) {
         super(driver);

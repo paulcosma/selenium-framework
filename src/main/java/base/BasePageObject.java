@@ -32,7 +32,7 @@ public class BasePageObject<T> {
     public void takeScreenshot(String name) {
         File screenshot;
         String screenshotPath = "test-output" + File.separator + "screenshots" + File.separator;
-        String screenshotName = name + Utils.getCurrentTime("yyyy-MM-dd_HH-mm-ss.SSS") + ".png";
+        String screenshotName = Utils.getCurrentTime("yyyy-MM-dd_HH-mm-ss.SSS") + name + ".png";
         try {
             if (driver.getClass().getName().equals("org.openqa.selenium.remote.RemoteWebDriver")) {
                 screenshot = ((TakesScreenshot) new Augmenter().augment(driver)).getScreenshotAs(OutputType.FILE);

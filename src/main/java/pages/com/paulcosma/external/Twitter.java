@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 public class Twitter extends BasePageObject<Twitter> {
     public static Logger log = LogManager.getLogger(Twitter.class.getName());
-    //page elements
+    // Page elements.
 
     public Twitter(WebDriver driver) {
         super(driver);

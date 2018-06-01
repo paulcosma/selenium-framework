@@ -10,7 +10,7 @@ import pages.com.paulcosma.external.*;
 
 public class HomePage extends BasePageObject<HomePage> {
     public static Logger log = LogManager.getLogger(HomePage.class.getName());
-    // Page elements description - used for test steps and clarity of errors.
+    // page elements description - used for test steps and clarity of errors
     private String logoDescription = "HomePage Logo";
     private String emailFieldDescription = "Enter your email address field";
     private String getNotifiedButtonDescription = "Get notified! button";
@@ -22,7 +22,7 @@ public class HomePage extends BasePageObject<HomePage> {
     private String footerMessageDescription = "Powered by Bootstrap";
     private String footerLinkDescription = "Link from footer";
     private String hiddenFooterElementDescription = "Hidden Footer element";
-    // Page elements.
+    //page elements
     private By logo = By.xpath("//img[@alt='Paul Cosma Logo']");
     private By emailField = By.id("exampleInputEmail1");
     private By getNotifiedButton = By.cssSelector("input[type='submit']");

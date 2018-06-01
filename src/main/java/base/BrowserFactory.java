@@ -35,26 +35,24 @@ public class BrowserFactory {
     }
 
     /**
-     * Get application environment
-     * Use first the environment variables
-     * If no environment variable is specified, use the defaultEnv
+     * Get testing environment
+     * Use system environment variables if specified else use defaultEnv.
+     * If defaultEnv variable is empty or null testingEnvironment will be production.
      *
      * @param defaultEnv
      * @return
      */
-    public static String getAppEnvironment(String defaultEnv) {
-        //get environment variable
-        String envValue = System.getenv("appenv");
-        log.debug("System.getenv(appenv) = " + envValue);
-        //if environment variable is not specified use defaultEnv
-        if (envValue == null) {
-            envValue = defaultEnv;
+    public static String getTestingEnvironment(String defaultEnv) {
+        String testingEnv = System.getenv("appenv");
+        log.debug("Default environment defaultEnv = " + defaultEnv);
+        log.debug("Environment variable System.getenv(appenv) = " + testingEnv);
+        if (testingEnv == null || testingEnv.isEmpty()) {
+            testingEnv = defaultEnv;
         }
-        //if production environment is specified leave variable empty, else add a dot a environment is a subdomain
-        if (envValue.equals("production")) {
+        if (testingEnv.equals("production") || testingEnv == null || testingEnv.isEmpty()) {
             return "";
         } else {
-            return envValue + ".";
+            return testingEnv.toLowerCase() + "."; // Add a dot because testing environment is used as a subdomain.
         }
     }
 }

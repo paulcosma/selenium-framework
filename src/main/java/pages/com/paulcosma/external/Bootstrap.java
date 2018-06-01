@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 public class Bootstrap extends BasePageObject<Bootstrap> {
     public static Logger log = LogManager.getLogger(Bootstrap.class.getName());
-    //page elements
+    // Page elements.
 
     public Bootstrap(WebDriver driver) {
         super(driver);
