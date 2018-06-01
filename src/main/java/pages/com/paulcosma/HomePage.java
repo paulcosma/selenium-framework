@@ -39,13 +39,6 @@ public class HomePage extends MyDriver<HomePage> {
         super(driver);
     }
 
-    public HomePage openHomePage() {
-        log.info("Steps to reproduce:");
-        log.info("Step: Go to homepage: " + Constants.URL);
-        goTo(Constants.URL, "home");
-        return this;
-    }
-
     public HomePage waitForHomePageToLoad() {
         log.info("Step: Wait for Home Page to load");
         waitForVisibilityOf(logo, logoDescription);

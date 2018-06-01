@@ -4,6 +4,7 @@ import base.Setup;
 import data.CsvDataProvider;
 import data.com.paulcosma.Constants;
 import data.com.paulcosma.EmailData;
+import navigator.Navigator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
@@ -20,10 +21,11 @@ public class TestEmailValidation extends Setup {
     @Test(dataProvider = "validEmails", dataProviderClass = EmailData.class)
     public void enterValidEmail(String email, String testNumber) {
         log.info("Test enterValidEmail number #" + testNumber + " with email = " + email);
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        homePage
-                .openHomePage()
+        HomePage homePage = navigator
+                .paulcosma
+                .goToHomePage()
                 .waitForHomePageToLoad()
                 .enterEmail(email)
                 .clickGetNotification();
@@ -41,10 +43,11 @@ public class TestEmailValidation extends Setup {
         String description = testData.get("description");
         log.info("Test enterInvalidEmail number #" + testNumber + " with: " + description + " where email" + " " +
                 "= " + email);
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        homePage
-                .openHomePage()
+        HomePage homePage =navigator
+                .paulcosma
+                .goToHomePage()
                 .waitForHomePageToLoad()
                 .enterEmail(email)
                 .clickGetNotification();

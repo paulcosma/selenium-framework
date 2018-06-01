@@ -2,6 +2,7 @@ package com.paulcosma.tests;
 
 import base.Setup;
 import data.com.paulcosma.Constants;
+import navigator.Navigator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
@@ -16,10 +17,11 @@ public class TestExternalLinks extends Setup {
 
     @Test
     public void openFacebookSocialLinks() {
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        Facebook facebook = homePage
-                .openHomePage()
+        Facebook facebook = navigator
+                .paulcosma
+                .goToHomePage()
                 .waitForHomePageToLoad()
                 .clickFacebookIcon()
                 .switchToWindowTab(1);
@@ -28,10 +30,11 @@ public class TestExternalLinks extends Setup {
 
     @Test
     public void openTwitterSocialLinks() {
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        Twitter twitter = homePage
-                .openHomePage()
+        Twitter twitter = navigator
+                .paulcosma
+                .goToHomePage()
                 .waitForHomePageToLoad()
                 .clickTwitterIcon()
                 .switchToWindowTab(1);
@@ -40,10 +43,11 @@ public class TestExternalLinks extends Setup {
 
     @Test
     public void openGithubSocialLinks() {
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        Github github = homePage
-                .openHomePage()
+        Github github = navigator
+                .paulcosma
+                .goToHomePage()
                 .waitForHomePageToLoad()
                 .clickGithubIcon()
                 .switchToWindowTab(1);
@@ -52,10 +56,11 @@ public class TestExternalLinks extends Setup {
 
     @Test
     public void openLinkedinSocialLinks() {
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        Linkedin linkedin = homePage
-                .openHomePage()
+        Linkedin linkedin = navigator
+                .paulcosma
+                .goToHomePage()
                 .waitForHomePageToLoad()
                 .clickLinkedinIcon()
                 .switchToWindowTab(1);
@@ -67,10 +72,11 @@ public class TestExternalLinks extends Setup {
 
     @Test
     public void openFooterLink() {
-        HomePage homePage = new HomePage(driver);
+        Navigator navigator = new Navigator(driver);
 
-        Bootstrap bootstrap = homePage
-                .openHomePage()
+        Bootstrap bootstrap = navigator
+                .paulcosma
+                .goToHomePage()
                 .waitForHomePageToLoad()
                 .switchToWindowTab(0)
                 .clickFooterLink()
