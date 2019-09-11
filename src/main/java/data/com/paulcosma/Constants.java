@@ -4,7 +4,7 @@ import base.BrowserFactory;
 
 public class Constants {
     // URL.
-    public static String defaultEnvironment = "test"; // test or production
+    public static String defaultEnvironment = "v1"; // test or production
     public static String protocol = "https://";
     public static String domain = "paulcosma.com/";
     public static final String URL = protocol + BrowserFactory.getTestingEnvironment(defaultEnvironment) + domain;
