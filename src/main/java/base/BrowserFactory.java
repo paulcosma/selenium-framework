@@ -19,7 +19,7 @@ public class BrowserFactory {
         String browser = System.getenv("browser");
         URL url = null;
         try {
-            url = new URL("http://192.168.99.100:4444/wd/hub");
+            url = new URL("http://10.2.0.51:31476/wd/hub");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
